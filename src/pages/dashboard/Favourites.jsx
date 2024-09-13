@@ -7,7 +7,7 @@ import { UserserviceContext } from '../../context/UserServiceContext.jsx';
 export default function Favourites() {
     const { fetchFavouritesProjects, favouritesProject, loading, } = useContext(ProjectServiceContext);
 
-    const { userData, isUserLoggedIn, fetchUserData } = useContext(UserserviceContext);
+    const { userData, isUserLoggedIn } = useContext(UserserviceContext);
 
 
     useEffect(() => {

@@ -3,8 +3,8 @@ import ProjectService from "../service/Project_service.js";
 import ProjectModel from "../model/ProjectModel.js";
 import { UserserviceContext } from "./UserServiceContext.jsx";
 import showToast from "../utils/ShowToast.js";
-import Tags from "../TagList.js";
-import { streams } from "../CategoryList.js";
+
+
 const ProjectServiceContext = createContext();
 
 
@@ -19,42 +19,20 @@ const ProjectServiceContextProvider = ({ children }) => {
     const [mostViewedProjects, setMostViewedProjects] = useState([]);
     const [totalViews, setTotalViews] = useState(0);
     const [topRating, setTopRating] = useState(0);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [file, setFile] = useState(null);
+    const [descriptionLoading, setDescriptionLoading] = useState(true);
+    const [descriptionError, setDescriptionError] = useState(null);
+    const [isCreatingProject, setIsCreatingProject] = useState(false);
 
 
 
     const { userData, isUserLoggedIn, fetchUserData } = useContext(UserserviceContext);
     const projectService = new ProjectService();
-    console.log(Tags);
-    console.log(streams);
 
 
-    const uploadFile = async (file) => {
-        try {
-            const response = await projectService.uploadImages(file);
-            console.log(response);
-            if (response.statusCode === 200) {
-                
-                showToast(response.message, 3000);
-            }
-        } catch (error) {
-            setError(error);
-        }
-    }
 
-    const additemToList = async ({ listType, itemList }) => {
-        try {
-            const response = await projectService.addItemToList({ listType, itemList });
-            console.log(response);
-            if (response.statusCode === 200) {
-                showToast(response.message, 3000);
-            }
-        } catch (error) {
-            setError(error);
-        }
-    }
 
     const updateViews = async (id) => {
         try {
@@ -69,33 +47,21 @@ const ProjectServiceContextProvider = ({ children }) => {
         }
     }
 
-
-    const addmorefield = async (field) => {
-        try {
-            const response = await projectService.addMoreFields(field);
-            console.log(response);
-            if (response.statusCode === 200) {
-                showToast(response.message, 3000);
-            }
-        } catch (error) {
-            setError(error);
-            console.log(error);
-        }
-    }
-
-
     const fetchProjectDescription = async (id) => {
         try {
+            setDescriptionLoading(true);
             const response = await projectService.fetchProjectById(id);
             console.log(response);
             if (response.statusCode === 200) {
                 setDescriptionProjectData(response.data);
-                setLoading(false);
+                setDescriptionLoading(false);
             } else {
-                setError(response.message);
+                setDescriptionLoading(false);
+                setDescriptionError(response.message);
             }
         } catch (error) {
-            setError(error);
+            setDescriptionLoading(false);
+            setDescriptionError(error);
         }
     }
 
@@ -103,36 +69,32 @@ const ProjectServiceContextProvider = ({ children }) => {
         try {
             console.log(isUserLoggedIn);
             if (isUserLoggedIn) {
-                console.log("id", id);
                 const response = await projectService.addToFavourites(id);
-                console.log(response);
-                console.log(favouritesProject);
-
                 if (response.statusCode === 200) {
                     if (response.message === 'Project added to favourites') {
-                        showToast('Project added to favourites', 3000);
+                        showToast('Project added to favourites', 2000, "success");
                         return "Project added to favourites"
                     } else if (response.message === 'Project removed from favourites') {
-                        showToast('Project removed from favourites', 3000);
+                        showToast('Project removed from favourites', 2000);
                         return "Project removed from favourites"
                     }
                     fetchUserData();
+                    fetchFavouritesProjects();
                 }
-                fetchFavouritesProjects();
             } else {
                 console.log('user not logged in');
-                // show toast for 2 seconds
-                showToast('Please login to add to favourites', 3000);
+                showToast('Please login to add to favourites', 3000, "error");
 
             }
         } catch (error) {
-            showToast(error, 3000);
+            showToast(error, 3000, "error");
             setError(error);
         }
     }
 
     const fetchfinalYearProjects = async () => {
         try {
+            setLoading(true);
             const response = await projectService.getFinalYearProjects();
             console.log(response);
             if (response.statusCode === 200) {
@@ -141,9 +103,11 @@ const ProjectServiceContextProvider = ({ children }) => {
                 setLoading(false);
             } else {
                 setError(response.message);
+                setLoading(false);
             }
         } catch (error) {
             setError(error);
+            setLoading(false);
         }
     }
 
@@ -154,6 +118,7 @@ const ProjectServiceContextProvider = ({ children }) => {
             if (!isUserLoggedIn) {
                 return;
             }
+            setLoading(true);
             const response = await projectService.getMostViewedProjects();
             console.log(response);
             console.log(response.statusCode);
@@ -166,11 +131,13 @@ const ProjectServiceContextProvider = ({ children }) => {
             }
         } catch (error) {
             setError(error);
+            setLoading(false);
         }
     }
 
     const fetchAllProjects = async () => {
         try {
+            setLoading(true);
             const response = await projectService.fetchAllProjects();
             console.log(response.data);
             if (response.statusCode === 200) {
@@ -180,12 +147,14 @@ const ProjectServiceContextProvider = ({ children }) => {
                 setLoading(false);
             } else {
                 setError(response.message);
+                setLoading(false);
             }
         } catch (error) {
             setError(error);
             setLoading(false);
         }
     }
+
 
     const fetchFavouritesProjects = async () => {
         try {
@@ -209,6 +178,7 @@ const ProjectServiceContextProvider = ({ children }) => {
 
     const fetchUserProjects = async () => {
         try {
+            setLoading(true);
             console.log(isUserLoggedIn);
             if (!isUserLoggedIn) {
                 return;
@@ -222,31 +192,58 @@ const ProjectServiceContextProvider = ({ children }) => {
             }
         } catch (error) {
             setError(error);
+            setLoading(false);
         }
     }
 
 
     const createProject = async (project) => {
         try {
+
+            if (!isUserLoggedIn) {
+                showToast("Please login to create project", 2500, "error");
+                return;
+            }
+            setIsCreatingProject(true);
             const response = await projectService.createProject(project);
             console.log(response);
-            // if (response.statusCode === 201) {
-            //     fetchAllProjects();
-            // }
+
+            if (response.statusCode === 201) {
+                showToast(response.message, 2500, "success");
+                fetchAllProjects();
+                setIsCreatingProject(false);
+            } else if (response.statusCode === 401) {
+                showToast(response.message, 2500, "error");
+                setIsCreatingProject(false);
+            } else {
+                setError(response.message);
+                showToast("Error creating project", 2500, "error");
+                setIsCreatingProject(false);
+            }
+
         } catch (error) {
             setError(error);
+            setIsCreatingProject(false);
         }
     }
+    console.log(totalViews);
 
     const fetchTotalViews = async () => {
         try {
+            setLoading(true);
             const response = await projectService.getTotalUsersProjectViews();
             console.log(response);
             if (response.statusCode === 200) {
+                if (response.data.totalViews === null) {
+                    setTotalViews(0);
+                    return;
+                }
                 setTotalViews(response.data);
+                setLoading(false);
             }
         } catch (error) {
             setError(error);
+            setLoading(false);
 
         }
     }
@@ -257,11 +254,25 @@ const ProjectServiceContextProvider = ({ children }) => {
             console.log(response);
             if (response.statusCode === 200) {
                 setTopRating(response.data);
+                setLoading(false);
+            }
+        } catch (error) {
+            setError(error);
+            setLoading(false);
+        }
+    }
+
+    const deleteProject = async (id) => {
+        try {
+            const response = await projectService.deleteProject(id);
+            console.log(response);
+            if (response.statusCode === 200) {
+                fetchAllProjects();
+                fetchUserData();
             }
         } catch (error) {
             setError(error);
         }
-
     }
 
     return (
@@ -286,7 +297,11 @@ const ProjectServiceContextProvider = ({ children }) => {
             error,
             fetchProjectDescription,
             descriptionProjectData,
+            descriptionLoading,
+            descriptionError,
             updateViews,
+            deleteProject,
+            isCreatingProject,
         }}>
             {children}
         </ProjectServiceContext.Provider>

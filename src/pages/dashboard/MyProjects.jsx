@@ -1,14 +1,26 @@
 import React, { useContext, useEffect } from 'react'
 import ProjectCard from '../project/ProjectCard.jsx'
-import { ProjectServiceContext } from '../../context/ProjectServiceContext.jsx'
+import { ProjectServiceContext } from '../../context/ProjectServiceContext.jsx';
+import { UserserviceContext } from '../../context/UserServiceContext.jsx';
 import Loader from '../../utils/Loader.jsx';
 
 export default function MyProjects() {
-    const { fetchUserProjects, myProjects, loading } = useContext(ProjectServiceContext);
+
+    const { userData, isUserLoggedIn } = useContext(UserserviceContext);
+
+
+    const { fetchUserProjects, myProjects, loading , favouritesProject, fetchFavouritesProjects} = useContext(ProjectServiceContext);
 
     useEffect(() => {
         fetchUserProjects();
     }, [])
+    
+    useEffect(() => {
+        console.log(favouritesProject);
+        fetchFavouritesProjects();
+    }, [userData])
+
+
 
     if (loading) {
         return <Loader />

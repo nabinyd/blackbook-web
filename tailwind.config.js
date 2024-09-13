@@ -24,7 +24,6 @@ module.exports = {
         'screen-90': '90vw',
         'custom-300': '300px',
       },
-      // add manrope font family
       fontFamily: {
         'manrope': ['Manrope', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],

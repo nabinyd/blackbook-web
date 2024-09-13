@@ -24,11 +24,11 @@ class ProjectModel {
         projectStatus,
         appAndPlatforms,
         college,
-        feedbacks,
-        projectLevel,
         updatedAt,
         projectUrl,
         collaborators,
+        projectPdf,
+        averageRating,
     }) {
         this.id = id;
         this.userId = userId;
@@ -49,11 +49,11 @@ class ProjectModel {
         this.projectStatus = projectStatus;
         this.appAndPlatforms = appAndPlatforms;
         this.college = college;
-        this.feedbacks = feedbacks;
-        this.projectLevel = projectLevel;
         this.updatedAt = updatedAt;
         this.projectUrl = projectUrl;
         this.collaborators = collaborators;
+        this.projectPdf = projectPdf;
+        this.averageRating = averageRating;
     }
 
     toMap() {
@@ -77,11 +77,11 @@ class ProjectModel {
             projectStatus: this.projectStatus,
             appAndPlatforms: this.appAndPlatforms,
             college: this.college,
-            feedbacks: this.feedbacks.map((e) => e.toMap()),
-            projectLevel: this.projectLevel,
             updatedAt: this.updatedAt,
             projectUrl: this.projectUrl,
             collaborators: this.collaborators,
+            projectPdf: this.projectPdf,
+            averageRating: this.averageRating,
         };
     }
 
@@ -106,11 +106,10 @@ class ProjectModel {
             projectStatus: map.projectStatus || '',
             appAndPlatforms: map.appAndPlatforms || [],
             college: map.college || '',
-            feedbacks: map.feedbacks ? map.feedbacks.map((e) => FeedbackModel.fromMap(e)) : [],
-            projectLevel: map.projectLevel || '',
             updatedAt: map.updatedAt instanceof Timestamp ? map.updatedAt : Timestamp.fromDate(new Date()),
             projectUrl: map.projectUrl || '',
             collaborators: map.collaborators || [],
+            projectPdf: map.projectPdf || ''
         });
     }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, USER_API } from '../Constant.js';
+import { BASE_URL, USER_API, EDITUSER_API } from '../Constant.js';
 
 
 export class UsersService {
@@ -7,22 +7,70 @@ export class UsersService {
     constructor() {
         this.base_api = BASE_URL;
         this.user_api = USER_API;
+        this.edit_user_api = EDITUSER_API;
         this.login_api = `${this.user_api}/login`;
         this.register_api = `${this.user_api}/register`;
+        this.google_login_api = `${this.user_api}/googlesignin`;
         this.get_userdata_api = `${this.user_api}/getloggeduserdata`;
         this.usercollection_api = `${this.user_api}/usercollection`;
         this.sendverificationEmail = `${this.user_api}/sendverificationemail`;
         this.logout_api = `${this.user_api}/logout`;
         this.validate_token_api = `${this.user_api}/validate-token`;
+        this.edit_user_api = `${this.edit_user_api}`;
+        this.delete_user_api = `${this.edit_user_api}/deleteuser`;
+    }
+
+    async deleteUser() {
+        try {
+            console.log("delete user api : ", this.delete_user_api);
+            const response = await axios.delete(this.delete_user_api, {
+                withCredentials: true,
+            });
+            console.log(response);
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
+
+    async sendResetPasswordEmail(email) {
+        try {
+            console.log(email);
+            const response = await axios.post(`${this.user_api}/resetpasswordemail`, { email });
+            console.log(response);
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
     }
 
 
-    async validateToken(token) {
+    async googleLogin(idToken) {
         try {
+            console.log("google login function called", idToken);
+            const response = await axios.post(this.google_login_api, { idToken });
+            console.log(response);
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+    }
+
+
+    async validateToken() {
+        try {
+            console.log(this.validate_token_api);
             const response = await axios.get(this.validate_token_api, {
-                headers: {
-                    Authorization: token,
-                }
+                withCredentials: true,
             });
             console.log("validate token response", response);
             if (response.status === 200) {
@@ -39,7 +87,6 @@ export class UsersService {
         try {
             const response = await axios.get(`${this.base_api}`);
             console.log(response.data);
-
             if (response.status === 200) {
                 return response.data;
             }
@@ -71,10 +118,13 @@ export class UsersService {
 
     async register({ email, password, fullname, username }) {
         try {
-            const response = await axios.post(this.register_api, { email, password, fullname, username });
+            const response = await axios.post(this.register_api, { email: email, password: password, fullName: fullname, userName: username });
             console.log(response);
-            if (response.status === 200) {
+            if (response.status === 201) {
                 return response.data;
+            } else if (response.status === 500) {
+                console.log(response);
+                return response;
             }
         } catch (error) {
             console.error(error);
@@ -84,7 +134,10 @@ export class UsersService {
 
     async getUserData() {
         try {
-            const response = await axios.get(this.get_userdata_api);
+            console.log("getuserdata function called");
+            const response = await axios.get(this.get_userdata_api, {
+                withCredentials: true,
+            });
             if (response.status === 200) {
                 return response.data;
             }
@@ -109,7 +162,9 @@ export class UsersService {
 
     async logout() {
         try {
-            const response = await axios.get(this.logout_api);
+            const response = await axios.get(this.logout_api, {
+                withCredentials: true,
+            });
             console.log(response);
             if (response.status === 200) {
                 return response.data;

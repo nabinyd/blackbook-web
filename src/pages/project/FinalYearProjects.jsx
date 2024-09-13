@@ -18,15 +18,12 @@ export default function FinalYearProjects() {
         if (isUserLoggedIn) {
             fetchFavouritesProjects();
         }
-    }, [userData])
-
-
-
+    }, [userData, isUserLoggedIn])
 
     if (error) {
         return (
             <div className='flex items-center h-screen-75 justify-center'>
-                <h1 >{error}</h1>
+                <h1 >No Project Found</h1>
             </div>
         )
     }
@@ -37,11 +34,11 @@ export default function FinalYearProjects() {
 
     return (
         <>
-            <div className=' mx-auto py-9 px-6'>
-                <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
+            <div className=' mx-auto w-fit sm:w-4/5'>
+                <div className=' sm:grid md:grid-cols-3 sm:grid-cols-2'>
                     {finalYearProjects.map((project) => {
                         console.log(project.id);
-                        return <ProjectCard key={project.id} project={project}  />
+                        return <ProjectCard key={project.id} project={project} />
                     })}
                 </div>
             </div>

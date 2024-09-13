@@ -1,13 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
+    var date = new Date().getFullYear();
     return (
-        <div className='h-7 text-gray-300 bg-background-color'>
-            <div className='mx-auto w-9/12 flex items-center justify-between'>
-                <p>© Blackbook 2024. All rights reserved.</p>
-                {/* <p>Terms of Service</p>
-                <p>Privacy Policy</p> */}
-                <p>Made by Nabin Yadav</p>
+        <div className='h-20 bg-dark-jet flex items-center  '>
+            <div className='sm:mx-auto sm:flex sm: flex-row-reverse justify-between items-center  gap-6 px-7'>
+                <div className='sm:flex sm:gap-8 '>
+                    <Link to="/termsandcondition">
+                        <p>Terms&Conditions</p>
+                    </Link>
+                    <Link to="/contact">
+                        <p>Contact</p>
+                    </Link>
+                </div>
+                <div>
+                    <p>© Blackbook {date}. All rights reserved.</p>
+                </div>
             </div>
         </div>
     )

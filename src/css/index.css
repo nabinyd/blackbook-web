@@ -3,13 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* add font family */
 @layer base {
     html {
         /* add manrope font family */
         font-family: 'Manrope', system-ui, sans-serif;
         background-color: #121212;
-        color: #fff;
+        color: #ffffff;
         
     }
 }

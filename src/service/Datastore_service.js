@@ -6,11 +6,50 @@ export default class DatastoreService {
         this.addmorefields_api = `${DATASTORELIST_API}/addmorefields`;
         this.getprojecttypes_api = `${DATASTORELIST_API}/getprojecttypelist`;
         this.getcategories_api = `${DATASTORELIST_API}/getcategorylist`;
-        this.getprojectlevels_api = `${DATASTORELIST_API}/getprojectlevellist`;
         this.getprojectstatus_api = `${DATASTORELIST_API}/getprojectstatuslist`;
         this.gettags_api = `${DATASTORELIST_API}/gettaglist`;
     }
 
+    async addMoreFields(fieldname) {
+        try {
+            const response = await axios.post(this.addmorefields_api, { fieldname }).then((response) => {
+                console.log(response.message);
+                return response.data;
+            }).catch((error) => {
+                console.error(error);
+                return error;
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+
+        }
+    }
+
+    async addItemToList({ listType, itemList }) {
+        console.log(listType, itemList);
+        try {
+            const response = await axios.post(this.addItemToList_api, { listType, itemList }).then((response) => {
+                console.log(response.message);
+                return response.data;
+            }).catch((error) => {
+                console.error(error);
+                return error;
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+
+    }
     async getTags() {
         try {
             const response = await axios.get(this.gettags_api);
@@ -53,21 +92,6 @@ export default class DatastoreService {
         }
     }
 
-    async getProjectLevels() {
-        try {
-            const response = await axios.get(this.getprojectlevels_api);
-            console.log(response.data);
-
-            if (response.status === 200) {
-                return response.data;
-            }
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
-    }
-
-
     async getProjectStatus() {
         try {
             const response = await axios.get(this.getprojectstatus_api);
@@ -81,9 +105,4 @@ export default class DatastoreService {
             return error;
         }
     }
-
-
-
-
-
 }

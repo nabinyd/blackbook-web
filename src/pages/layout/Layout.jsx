@@ -1,20 +1,27 @@
 import React, { useContext, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './navbar.jsx'
-import Footer from './Footer.jsx';
 import { UserserviceContext } from '../../context/UserServiceContext.jsx';
 import Loader from '../../utils/Loader.jsx';
 
 function Layout() {
-    const { isUserLoggedIn, loading } = useContext(UserserviceContext);
+    const { isUserLoggedIn, validateToken, validatingToken } = useContext(UserserviceContext);
+
+
+
+    
 
     useEffect(() => {
-        console.log(isUserLoggedIn);
-    }, [isUserLoggedIn])
+        if (!isUserLoggedIn) {
+            validateToken();
+        }
+    }, []);
+    
 
-    if (loading) {
+    if (validatingToken) {
         return <Loader />
     }
+
 
     return (
         <>

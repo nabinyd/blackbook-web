@@ -8,9 +8,9 @@ import LastSeen from '../../utils/LastSeen.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FeedbackContext } from '../../context/FeedbackContext.jsx';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
-// import { UserserviceContext } from '../../context/UserServiceContext.jsx';
 import PdfVIewer from '../../utils/PdfVIewer.jsx';
 import { UserserviceContext } from '../../context/UserServiceContext.jsx';
+import { faNutritionix } from '@fortawesome/free-brands-svg-icons';
 
 
 export default function DescriptionPage() {
@@ -20,35 +20,28 @@ export default function DescriptionPage() {
     const { isUserLoggedIn } = useContext(UserserviceContext);
     console.log(isUserLoggedIn);
 
-    const { fetchProjectDescription, descriptionProjectData, loading, error, addtoFavourites } = useContext(ProjectServiceContext);
+    const { fetchProjectDescription, descriptionProjectData, loading, addtoFavourites, descriptionLoading, descriptionError } = useContext(ProjectServiceContext);
 
-    const { feedbacks, setFeedbacks, addFeedback, fetchFeedback, projectFeedbacks } = useContext(FeedbackContext);
+    const { feedbacks, setFeedbacks, addFeedback, fetchFeedback, projectFeedbacks, feedbackLoading } = useContext(FeedbackContext);
+
+    function handleCommentChange(e) {
+        e.preventDefault();
+        setFeedbacks({ ...feedbacks, comments: e.target.value });
+    }
 
     useEffect(() => {
         fetchProjectDescription(id);
         fetchFeedback(id);
     }, []);
 
-    useEffect(() => {
-        if (feedbacks) {
-            fetchFeedback(id);
-        }
-    }, [feedbacks]);
 
-    if (error) {
-        return (
-            <div className='flex items-center h-screen-75 justify-center'>
-                <h1>{error}</h1>
-            </div>
-        );
-    }
-
-    if (loading) {
+    if (loading || descriptionLoading) {
         return <Loader />;
     }
 
-    console.log(descriptionProjectData.pdfUrl);
-    console.log(projectFeedbacks);
+    if (descriptionError) {
+        return <h1 className='text-center text-white'>Error: {descriptionError}</h1>
+    }
 
     function convertTimestampToDate(timestamp) {
         try {
@@ -66,24 +59,23 @@ export default function DescriptionPage() {
     const handleFavourite = () => {
         addtoFavourites(id);
     };
+
     if (!descriptionProjectData || !descriptionProjectData.imagesUrl || descriptionProjectData.imagesUrl.length === 0) {
-        return (
-            <div>
-                <h1>No data available</h1>
-            </div>
-        )
+        return <Loader />;
     }
 
     let title = descriptionProjectData.title.split(" ");
     // make the first letter of each word capital seprated by space
     title = title.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
+    const feedbackLength = projectFeedbacks.length;
+
     return (
         <div className=' w-8/12 mx-auto text-start p-5'>
             <div>
                 <div className='my-3'>
                     {/* <h1>id: {descriptionProjectData.id}</h1> */}
-                    <h1 className='text-3xl font-medium font-lato'>{title} Lorem ipsum dolor sit amet consectetur adipisicing elit. </h1>
+                    <h1 className='text-3xl font-medium font-lato'>{title}</h1>
                     {/* <p>{descriptionProjectData.projectStatus}</p> */}
                 </div>
                 <div className='flex text-lg text-gray-400 gap-3 items-center justify-start'>
@@ -97,29 +89,30 @@ export default function DescriptionPage() {
                 <div className="w-full h-[0.1px] bg-gray-900 mt-5"></div>
                 <div className='flex justify-between  my-10 z-20'>
                     <div className='border rounded-md border-gray-600 p-2 text-lg text-gray-100 w-72 text-wrap'>
-                        <h4>Level: <span className='text-gray-400'>{descriptionProjectData.projectLevel}</span> </h4>
                         <h4>Type:  <span className='text-gray-400'>{descriptionProjectData.projectType}</span></h4>
                         <p>Category:  <span className='text-gray-400'>{descriptionProjectData.category}</span></p>
                         <p>Stream:  <span className='text-gray-400'>{descriptionProjectData.stream}</span></p>
                         <p>College:  <span className='text-gray-400'>{descriptionProjectData.college}</span></p>
                     </div>
                     <div className='flex gap-4 mt-2'>
-                        <Link to={
-                            `/pdf-viewer/${encodeURIComponent(descriptionProjectData.pdfUrl)}`}
+                        {descriptionProjectData.isFinalYearProject && <Link to={descriptionProjectData.pdfUrl} target='_blank' className='text-white'
                         >
-                            <div className=' px-4 bg-slate-800 w-fit h-12 flex items-center'>
+                            <div className=' p-3 bg-slate-800 w-fit flex items-center'>
                                 <h6 >View PDF</h6>
                             </div>
+                        </Link>}
+                        {/* <a href={descriptionProjectData.pdfUrl} target='_blank'>view pdf</a> */}
+                        <Link>
+                            <div className=' p-3 bg-slate-800 w-fit flex items-center' onClick={() => handleFavourite()}>
+                                <h4>Favourite</h4>
+                            </div>
                         </Link>
-                        <div className=' px-4 bg-slate-800 w-fit h-12 flex items-center' onClick={() => handleFavourite()}>
-                            <h4>Favourite</h4>
-                        </div>
                     </div>
                 </div>
 
                 <div className='mt-10'>
                     <h4 className='text-lg font-semibold '>Description:</h4>
-                    <p className='text-gray-300 p-2'>{descriptionProjectData.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quos harum deleniti unde sunt animi dicta distinctio atque quidem est voluptatem illum architecto, officia placeat laborum sapiente voluptates, totam quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus cum eos, recusandae, totam dolorum obcaecati necessitatibus atque placeat corrupti cumque deserunt ipsam tempore laboriosam? Ullam sapiente praesentium ad unde neque.</p>
+                    <p className='text-gray-300 p-2'>{descriptionProjectData.description}</p>
                 </div>
 
                 <div className='flex items-center justify-center'>
@@ -137,7 +130,7 @@ export default function DescriptionPage() {
                         <div>No components available</div>
                     )}
                     {descriptionProjectData && descriptionProjectData.components.map((component) => {
-                        return <div className='p-2 w-72 justify-center bg-jet m-2 flex items-center rounded-lg' key={component}>
+                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={component}>
                             <h1>{component}</h1>
                         </div>
                     })}
@@ -147,7 +140,7 @@ export default function DescriptionPage() {
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Apps and platforms used:</h4>
                     {descriptionProjectData && descriptionProjectData.appAndPlatforms.map((apps) => {
-                        return <div className='p-2 w-72 justify-center bg-jet m-2 flex items-center rounded-lg' key={apps}>
+                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={apps}>
                             <h1>{apps}</h1>
                         </div>
                     })}
@@ -156,10 +149,22 @@ export default function DescriptionPage() {
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Tags:</h4>
                     {descriptionProjectData && descriptionProjectData.tags.map((tag) => {
-                        return <div className='p-2 w-72 justify-center bg-jet m-2 flex items-center rounded-lg' key={tag}>
+                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={tag}>
                             <h1>{tag}</h1>
                         </div>
                     })}
+                </div>
+                <div>
+                    <h4 className='text-lg font-semibold'>Contributors:</h4>
+                    <div className='flex gap-4 flex-col py-3'>
+                        {descriptionProjectData && descriptionProjectData.collaborators.map((contributor) => {
+                            return <div className='flex items-center gap-2' key={contributor}>
+                                <div className='Avatar h-9 w-9 rounded-full bg-blue-600 bg-opacity-20 flex items-center justify-center '>{contributor.charAt(0).toUpperCase()}
+                                </div>
+                                <h1>{contributor}</h1>
+                            </div>
+                        })}
+                    </div>
                 </div>
                 <h4 className='text-lg font-semibold'>Project Images:</h4>
                 <div className='flex overflow-x-auto h-96 w-full'>
@@ -180,7 +185,7 @@ export default function DescriptionPage() {
                 <div className=' flex flex-col'>
                     <textarea
                         value={feedbacks.comments}
-                        onChange={(e) => setFeedbacks({ ...feedbacks, comments: e.target.value })}
+                        onChange={handleCommentChange}
                         className='w-full h-20 bg-jet px-3 py-1.5 rounded-lg text-gray-300'
                         placeholder='Write your comment here'>
                     </textarea>
@@ -200,13 +205,12 @@ export default function DescriptionPage() {
                             className='text-blue-600'
                             size='lg'
                         />
-                        <p className='text-lg font-semibold px-3'>Comments:  {projectFeedbacks.length} </p>
+                        <p className='text-lg font-semibold px-3'>Comments:  {feedbackLength} </p>
                     </div>
                 </div>
-                <div className=''>
-                    {projectFeedbacks.length === 0 && <p className='text-center'>No comments yet</p>}
-                    {projectFeedbacks.map((comment) => {
-                        console.log(projectFeedbacks.length);
+                <div >
+                    {feedbackLength === 0 && <p className='text-center'>No comments yet</p>}
+                    {feedbackLoading ? <Loader /> : projectFeedbacks.map((comment) => {
                         return (
                             <div key={comment.id} className=' rounded-lg px-4 my-2 bg-neutral-900 flex justify-between items-center'>
                                 <div className='p-2 flex items-center'>
@@ -231,7 +235,6 @@ export default function DescriptionPage() {
                     })}
                 </div>
             </div>
-            {/* <pre>{JSON.stringify(descriptionProjectData, null, 2)}</pre> */}
         </div>
     )
 }

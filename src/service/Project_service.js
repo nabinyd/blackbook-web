@@ -21,6 +21,25 @@ export default class ProjectService {
         this.updateViews_api = `${PROJECT_API}/updateviewscount`;
     }
 
+    // write all funaction name from this file
+    // updateViewsCount
+    // addMoreFields
+    // addItemToList
+    // getFinalYearProjects
+    // addToFavourites
+    // getMostViewedProjects
+    // getTotalUsersProjectViews
+    // fetchAllProjects
+    // fetchFavouritesProjects
+    // fetchUserProjects
+    // fetchProjectById
+    // fetchUserProjects
+    // deleteProject
+    // getTopRatingProjects
+    // createProject
+    // uploadImages
+
+
 
     async updateViewsCount(id) {
         try {
@@ -89,7 +108,6 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.getFinalYearProjects_api);
             console.log(response.data);
-
             if (response.status === 200) {
                 return response.data;
             }
@@ -101,7 +119,12 @@ export default class ProjectService {
 
     async addToFavourites(id) {
         try {
-            const response = await axios.post(`${this.addToFavourites_api}/${id}`);
+            console.log("id", id);
+            const url = `${this.addToFavourites_api}/${id}`;
+            console.log(url);
+            const response = await axios.post(url, {}, {
+                withCredentials: true,
+            })
             console.log(response.data);
 
             if (response.status === 200) {
@@ -115,7 +138,9 @@ export default class ProjectService {
 
     async getMostViewedProjects() {
         try {
-            const response = await axios.get(this.mostviewedProjects_api);
+            const response = await axios.get(this.mostviewedProjects_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -130,7 +155,9 @@ export default class ProjectService {
 
     async getTotalUsersProjectViews() {
         try {
-            const response = await axios.get(this.getTotalUserProjects_views_api);
+            const response = await axios.get(this.getTotalUserProjects_views_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -144,6 +171,7 @@ export default class ProjectService {
 
     async fetchAllProjects() {
         try {
+            console.log(this.fetchAllProjects_api);
             const response = await axios.get(this.fetchAllProjects_api);
             console.log(response.data);
 
@@ -159,7 +187,9 @@ export default class ProjectService {
 
     async fetchFavouritesProjects() {
         try {
-            const response = await axios.get(this.favouritesProjects_api);
+            const response = await axios.get(this.favouritesProjects_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -175,7 +205,9 @@ export default class ProjectService {
 
     async fetchUserProjects() {
         try {
-            const response = await axios.get(this.fetchUserProjects_api);
+            const response = await axios.get(this.fetchUserProjects_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -186,7 +218,6 @@ export default class ProjectService {
             return error;
         }
     }
-
 
 
     async fetchProjectById(id) {
@@ -205,7 +236,9 @@ export default class ProjectService {
 
     async fetchUserProjects() {
         try {
-            const response = await axios.get(this.fetchUserProjects_api);
+            const response = await axios.get(this.fetchUserProjects_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -219,7 +252,9 @@ export default class ProjectService {
 
     async deleteProject(id) {
         try {
-            const response = await axios.delete(`${this.deleteProject_api}/${id}`);
+            const response = await axios.delete(`${this.deleteProject_api}/${id}`, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -233,7 +268,9 @@ export default class ProjectService {
 
     async getTopRatingProjects() {
         try {
-            const response = await axios.get(this.getTopRatingProjects_api);
+            const response = await axios.get(this.getTopRatingProjects_api, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
@@ -248,11 +285,15 @@ export default class ProjectService {
     async createProject(data) {
         try {
             console.log("data", data);
-            const response = await axios.post(this.createProject_api, data);
+            const response = await axios.post(this.createProject_api, data, {
+                withCredentials: true,
+            });
             console.log(response.data);
 
             if (response.status === 200) {
                 return response.data;
+            } else {
+                return response;
             }
         } catch (error) {
             console.error(error);
@@ -273,6 +314,4 @@ export default class ProjectService {
             return error;
         }
     }
-
-
 }

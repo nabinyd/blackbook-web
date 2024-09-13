@@ -2,7 +2,10 @@
 const BASE_URL = 'http://localhost:8000';
 const USER_API = `${BASE_URL}/api/v1/users`;
 const PROJECT_API = `${BASE_URL}/api/v1/projects`;
+const FEEDBACK_API = `${BASE_URL}/api/v1/feedback`;
+const EDITUSER_API = `${BASE_URL}/api/v1/edituser`;
 const DATASTORELIST_API = `${BASE_URL}/api/v1/datastorelist`;
+
 
 
 
@@ -16,19 +19,12 @@ const initialUserData = {
     address: '',
     profilePictureUrl: '',
     bio: '',
-    notificationsEnabled: false,
-    preferredLanguage: '',
-    preferredTheme: '',
-    loginHistory: [],
-    usageStatistics: {},
     friends: [],
     groups: [],
     birthDate: '',
     gender: '',
     country: '',
-    region: '',
-    deviceInfo: {},
-    ipAddress: '',
+
 };
 
 const initialProjectData = {
@@ -45,12 +41,12 @@ const initialProjectData = {
     viewCount: 0,
     components: [],
     projectType: '',
-    projectStatus: '',
+    projectStatus: 'Pending',
     appAndPlatforms: [],
-    college: '',
-    projectLevel: '',
+    college: 'N/A',
     projectUrl: '',
     collaborators: [],
+    projectPdf: '',
 }
 
 
@@ -58,4 +54,4 @@ const initialProjectData = {
 
 
 
-export { BASE_URL, USER_API, PROJECT_API, initialUserData, initialProjectData, DATASTORELIST_API };
+export { BASE_URL, USER_API, PROJECT_API, initialUserData, initialProjectData, DATASTORELIST_API, FEEDBACK_API, EDITUSER_API };

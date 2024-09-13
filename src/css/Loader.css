@@ -2,13 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80px;
-    height: 20px;
+    width: 70px;
+    height: 15px;
 }
 
 .wave-dots .dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     background-color: #ffff;
     border-radius: 50%;
     animation: wave 1.2s linear infinite;

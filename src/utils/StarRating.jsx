@@ -1,18 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { FeedbackContext } from '../context/FeedbackContext';
 
-import '../utils/StarRating.css';
+import '../css/StarRating.css';
 
 export default function StarRating({ showRating, isDisplayOnly = false }) {
 
     // const { rating: contextRating, setFeedback , feedbacks} = useContext(FeedbackContext);
     const { setFeedbacks, feedbacks } = useContext(FeedbackContext);
     const [hover, setHover] = useState(0);
-
-    // useEffect(() => {
-
-    //     feedbacks.rating = showRating;
-    // }, [feedbacks.rating])
 
     const rating = isDisplayOnly ? showRating : feedbacks.rating;
 

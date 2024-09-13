@@ -6,12 +6,13 @@ import Loader from '../../utils/Loader.jsx';
 import { UserserviceContext } from '../../context/UserServiceContext.jsx';
 
 function Projects() {
-    const { fetchAllProjects, projectData, loading, favouritesProject, fetchFavouritesProjects, error } = useContext(ProjectServiceContext);
-    const { userData, isUserLoggedIn, fetchUserData, validateToken } = useContext(UserserviceContext);
+    const { userData, isUserLoggedIn } = useContext(UserserviceContext);
+    const { fetchAllProjects, projectData, loading, fetchFavouritesProjects, error } = useContext(ProjectServiceContext);
+    console.log(isUserLoggedIn);
+    console.log(userData);
 
     useEffect(() => {
         fetchAllProjects();
-        console.log(error);
     }, [])
 
     useEffect(() => {
@@ -24,7 +25,7 @@ function Projects() {
     if (error) {
         return (
             <div className='flex items-center h-screen-75 justify-center'>
-                <h1 >{error}</h1>
+                <h1 >No project Found.</h1>
             </div>
         )
     }
@@ -35,9 +36,10 @@ function Projects() {
 
     return (
         <>
-            <div className='bg-background-color  mx-auto py-9 px-6'>
-                <div className=' grid grid-cols-4'>
+            <div className='mx-auto w-fit sm:w-4/5'>
+                <div className='sm:grid sm:grid-cols-3'>
                     {projectData.map((project) => {
+                        console.log(project);
                         return <ProjectCard key={project.id} project={project} />
                     })}
                 </div>

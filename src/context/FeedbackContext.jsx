@@ -38,7 +38,7 @@ const FeedbackContextProvider = ({ children }) => {
                 showToast(response.message, 3000, "error");
                 setError(response.message);
                 setFeedbacks(initialFeedback);
-            }c
+            }
         } catch (error) {
             console.log("addFeedback error", error);
             setError(error);

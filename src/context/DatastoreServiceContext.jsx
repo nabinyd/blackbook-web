@@ -1,8 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import DatastoreService from "../service/Datastore_service.js";
-import { ProjectType,  ProjectStatus } from "../ItemList/ProjectTypeList.js";
-import { streams } from "../ItemList/CategoryList.js";
-import Tags from "../ItemList/TagList.js";
 const DatastoreServiceContext = createContext();
 
 

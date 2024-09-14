@@ -474,7 +474,7 @@ export default function CreateProject() {
                         <input type='file' multiple accept='.jpg,.jpeg,.png' className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                             name='imagesUrl'
                             onChange={handleImageFileChange}
-                            required
+                            
                         // value={projectData.imagesUrl}
                         />
                     </div>

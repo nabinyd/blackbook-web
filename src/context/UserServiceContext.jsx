@@ -58,6 +58,7 @@ const UserserviceContextProvider = ({ children }) => {
                         setIsUserLoggedIn(true);
                         setUserData(response.data.userData);
                         Cookies.set('idToken', response.data.idToken);
+                        localStorage.setItem("idToken", response.data.idToken);
                         setLoadingGoogle(false);
                         showToast("You are successfully logged in!", 2500, "success");
                     } else {
@@ -82,6 +83,7 @@ const UserserviceContextProvider = ({ children }) => {
             setValidatingToken(true);
             const response = await usersService.validateToken();
             console.log(response);
+            setValidatingToken(false);
             if (response.statusCode === 200) {
                 setIsUserLoggedIn(true);
                 setUserData(response.data.userData);
@@ -112,6 +114,7 @@ const UserserviceContextProvider = ({ children }) => {
                 setIsUserLoggedIn(true);
                 setUserData(data.userData);
                 Cookies.set("idToken", data.idToken);
+                localStorage.setItem("idToken", data.idToken);
                 setLoading(false);
             } else {
                 setIsUserLoggedIn(false);
@@ -157,6 +160,7 @@ const UserserviceContextProvider = ({ children }) => {
                 setIsUserLoggedIn(true);
                 setUserData(data.userData);
                 Cookies.set('idToken', data.idToken);
+                localStorage.setItem("idToken", data.idToken);
                 showToast("You are successfully registered!", 2500, "success");
                 setIsCreatingUser(false);
 
@@ -177,9 +181,13 @@ const UserserviceContextProvider = ({ children }) => {
     const handleLogout = async () => {
         try {
             const idToken = Cookies.get('idToken');
-            if (!idToken) {
+            const localStorageToken = localStorage.getItem('idToken');
+            console.log( localStorageToken);
+            if (!localStorageToken) {
                 setIsUserLoggedIn(false);
                 setUserData(initialUserData);
+                setLoading(false);
+                setError(null);
                 return;
             }
             const response = await usersService.logout();
@@ -188,6 +196,7 @@ const UserserviceContextProvider = ({ children }) => {
                 setIsUserLoggedIn(false);
                 setUserData(initialUserData);
                 Cookies.remove('idToken');
+                localStorage.removeItem('idToken');
                 setLoading(false);
                 setError(null);
                 setGoogleError(null);
@@ -207,6 +216,7 @@ const UserserviceContextProvider = ({ children }) => {
                 setIsUserLoggedIn(false);
                 setUserData(initialUserData);
                 Cookies.remove('idToken');
+                localStorage.removeItem('idToken');
                 showToast("Your account has been deleted!", 2500, "success");
             }
         } catch (error) {

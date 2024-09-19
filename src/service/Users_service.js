@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { BASE_URL, USER_API, EDITUSER_API } from '../Constant.js';
+import { BASE_URL, USER_API, EDITUSER_API, ID_TOKEN } from '../Constant.js';
 
 
 export class UsersService {
 
     constructor() {
+        this.idToken = ID_TOKEN;
         this.base_api = BASE_URL;
         this.user_api = USER_API;
         this.edit_user_api = EDITUSER_API;
@@ -25,6 +26,9 @@ export class UsersService {
             console.log("delete user api : ", this.delete_user_api);
             const response = await axios.delete(this.delete_user_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response);
             if (response.status === 200) {
@@ -68,9 +72,12 @@ export class UsersService {
 
     async validateToken() {
         try {
-            console.log(this.validate_token_api);
+            console.log(this.idToken);
             const response = await axios.get(this.validate_token_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log("validate token response", response);
             if (response.status === 200) {
@@ -137,6 +144,9 @@ export class UsersService {
             console.log("getuserdata function called");
             const response = await axios.get(this.get_userdata_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             if (response.status === 200) {
                 return response.data;
@@ -164,6 +174,9 @@ export class UsersService {
         try {
             const response = await axios.get(this.logout_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response);
             if (response.status === 200) {

@@ -7,10 +7,6 @@ import Loader from '../../utils/Loader.jsx';
 function Layout() {
     const { isUserLoggedIn, validateToken, validatingToken } = useContext(UserserviceContext);
 
-
-
-    
-
     useEffect(() => {
         if (!isUserLoggedIn) {
             validateToken();
@@ -27,7 +23,6 @@ function Layout() {
         <>
             <Navbar />
             <Outlet />
-            {/* {!isDashboard && <Footer />} */}
         </>
     )
 }

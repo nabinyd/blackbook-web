@@ -1,11 +1,13 @@
-const BASE_URL = 'https://blackbook-gamma.vercel.app';
-// const BASE_URL = 'http://localhost:8000';
+// const BASE_URL = 'https://blackbook-gamma.vercel.app';
+const BASE_URL =process.env.REACT_APP_BASE_URL;
+console.log("base url : ", BASE_URL);
 const USER_API = `${BASE_URL}/api/v1/users`;
 const PROJECT_API = `${BASE_URL}/api/v1/projects`;
 const FEEDBACK_API = `${BASE_URL}/api/v1/feedback`;
 const EDITUSER_API = `${BASE_URL}/api/v1/edituser`;
 const DATASTORELIST_API = `${BASE_URL}/api/v1/datastorelist`;
 
+const ID_TOKEN = localStorage.getItem("idToken");
 
 
 
@@ -54,4 +56,4 @@ const initialProjectData = {
 
 
 
-export { BASE_URL, USER_API, PROJECT_API, initialUserData, initialProjectData, DATASTORELIST_API, FEEDBACK_API, EDITUSER_API };
+export { BASE_URL, USER_API, PROJECT_API, initialUserData, initialProjectData, DATASTORELIST_API, FEEDBACK_API, EDITUSER_API, ID_TOKEN };

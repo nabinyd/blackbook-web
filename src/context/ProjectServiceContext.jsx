@@ -162,7 +162,9 @@ const ProjectServiceContextProvider = ({ children }) => {
             if (!isUserLoggedIn) {
                 return;
             }
+            setLoading(true);
             const response = await projectService.fetchFavouritesProjects();
+            setLoading(false);
             console.log(response);
             console.log(response.statusCode);
             if (response.statusCode === 200) {
@@ -172,19 +174,21 @@ const ProjectServiceContextProvider = ({ children }) => {
             }
         } catch (error) {
             setError(error);
+            setLoading(false);
         }
     }
 
 
     const fetchUserProjects = async () => {
         try {
-            setLoading(true);
             console.log(isUserLoggedIn);
             if (!isUserLoggedIn) {
                 return;
             }
+            setLoading(true);
             const response = await projectService.fetchUserProjects();
             console.log(response);
+            setLoading(false);
             if (response.statusCode === 200) {
                 const projects = response.data.map((project) => new ProjectModel(project));
                 setMyProjects(projects);
@@ -206,6 +210,7 @@ const ProjectServiceContextProvider = ({ children }) => {
             }
             setIsCreatingProject(true);
             const response = await projectService.createProject(project);
+            setIsCreatingProject(false);
             console.log(response);
 
             if (response.statusCode === 201) {
@@ -232,6 +237,7 @@ const ProjectServiceContextProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await projectService.getTotalUsersProjectViews();
+            setLoading(false);
             console.log(response);
             if (response.statusCode === 200) {
                 if (response.data.totalViews === null) {
@@ -241,6 +247,7 @@ const ProjectServiceContextProvider = ({ children }) => {
                 setTotalViews(response.data);
                 setLoading(false);
             }
+
         } catch (error) {
             setError(error);
             setLoading(false);
@@ -250,7 +257,9 @@ const ProjectServiceContextProvider = ({ children }) => {
 
     const fetchTopRating = async () => {
         try {
+            setLoading(true);
             const response = await projectService.getTopRatingProjects();
+            setLoading(false);
             console.log(response);
             if (response.statusCode === 200) {
                 setTopRating(response.data);

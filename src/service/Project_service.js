@@ -1,9 +1,10 @@
 import axios from "axios";
-import { PROJECT_API } from "../Constant.js";
-import { DATASTORELIST_API } from "../Constant.js";
+import { PROJECT_API, DATASTORELIST_API, ID_TOKEN } from "../Constant.js";
+
 
 export default class ProjectService {
     constructor() {
+        this.idToken = ID_TOKEN;
         this.fetchAllProjects_api = PROJECT_API;
         this.favouritesProjects_api = `${PROJECT_API}/favorites`;
         this.fetchprojectby_id_api = `${PROJECT_API}`;
@@ -124,6 +125,9 @@ export default class ProjectService {
             console.log(url);
             const response = await axios.post(url, {}, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             })
             console.log(response.data);
 
@@ -140,6 +144,9 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.mostviewedProjects_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -157,6 +164,9 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.getTotalUserProjects_views_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -189,6 +199,9 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.favouritesProjects_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -207,6 +220,9 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.fetchUserProjects_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -238,6 +254,9 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.fetchUserProjects_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -254,6 +273,9 @@ export default class ProjectService {
         try {
             const response = await axios.delete(`${this.deleteProject_api}/${id}`, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 
@@ -270,6 +292,10 @@ export default class ProjectService {
         try {
             const response = await axios.get(this.getTopRatingProjects_api, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
+
             });
             console.log(response.data);
 
@@ -287,6 +313,9 @@ export default class ProjectService {
             console.log("data", data);
             const response = await axios.post(this.createProject_api, data, {
                 withCredentials: true,
+                headers: {
+                    Authorization: `Bearer ${this.idToken}`
+                }
             });
             console.log(response.data);
 

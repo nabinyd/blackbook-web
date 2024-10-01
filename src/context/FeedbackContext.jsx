@@ -29,7 +29,7 @@ const FeedbackContextProvider = ({ children }) => {
                 feedbacks.comments,
                 feedbacks.rating,
             );
-            console.log(response);
+            // console.log(response);
             if (response.statusCode === 201) {
                 showToast(response.message, 3000, "success");
                 setFeedbacks(initialFeedback);
@@ -50,7 +50,7 @@ const FeedbackContextProvider = ({ children }) => {
         try {
             setFeedbackLoading(true);
             const response = await feedbackService.getFeedback(id);
-            console.log(response.data);
+            // console.log(response.data);
             setFeedbackLoading(false);
             if (response.statusCode === 200) {
                 setProjectFeedbacks(response.data);
@@ -61,11 +61,6 @@ const FeedbackContextProvider = ({ children }) => {
             setError(error);
         }
     }
-
-    useEffect(() => {
-        fetchFeedback("691b2dc3-7a4e-4f00-997f-1926ce7eb2ef");
-    }, [])
-
 
     return (
         <FeedbackContext.Provider value={{ setFeedbacks, feedbacks, addFeedback, fetchFeedback, projectFeedbacks, feedbackLoading }} >

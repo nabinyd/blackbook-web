@@ -15,10 +15,8 @@ import { faNutritionix } from '@fortawesome/free-brands-svg-icons';
 
 export default function DescriptionPage() {
     const { id } = useParams();
-    console.log(id);
 
     const { isUserLoggedIn } = useContext(UserserviceContext);
-    console.log(isUserLoggedIn);
 
     const { fetchProjectDescription, descriptionProjectData, loading, addtoFavourites, descriptionLoading, descriptionError } = useContext(ProjectServiceContext);
 
@@ -69,6 +67,7 @@ export default function DescriptionPage() {
     title = title.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
     const feedbackLength = projectFeedbacks.length;
+    console.log(descriptionProjectData);
 
     return (
         <div className=' w-8/12 mx-auto text-start p-5'>
@@ -88,7 +87,7 @@ export default function DescriptionPage() {
 
                 <div className="w-full h-[0.1px] bg-gray-900 mt-5"></div>
                 <div className='flex justify-between  my-10 z-20'>
-                    <div className='border rounded-md border-gray-600 p-2 text-lg text-gray-100 w-72 text-wrap'>
+                    <div className='border rounded-md border-gray-600 p-2 text-gray-100 w-72 text-wrap'>
                         <h4>Type:  <span className='text-gray-400'>{descriptionProjectData.projectType}</span></h4>
                         <p>Category:  <span className='text-gray-400'>{descriptionProjectData.category}</span></p>
                         <p>Stream:  <span className='text-gray-400'>{descriptionProjectData.stream}</span></p>
@@ -110,18 +109,20 @@ export default function DescriptionPage() {
                     </div>
                 </div>
 
-                <div className='mt-10'>
+                <div className='my-10'>
                     <h4 className='text-lg font-semibold '>Description:</h4>
-                    <p className='text-gray-300 p-2'>{descriptionProjectData.description}</p>
+                    {/* <p className='text-gray-300 p-2'>{descriptionProjectData.description}</p> */}
+                    <div dangerouslySetInnerHTML={{ __html: descriptionProjectData.description }}></div>
+
                 </div>
 
-                <div className='flex items-center justify-center'>
-                    <div className='h-96 w-80 my-10 overflow-hidden bg-contain '>
-                        {descriptionProjectData && descriptionProjectData.imagesUrl.slice(1).map((image) => {
-                            return <img key={image} src={image} alt='project-image' className='' />
+                {/* <div className='flex items-center justify-center'>
+                    <div className='h-60 w-80 my-10 overflow-hidden bg-contain '>
+                        {descriptionProjectData && descriptionProjectData.imagesUrl.slice(0, 1).map((image) => {
+                            return <img key={image} src={image} alt='project-image' className='object-cover' />
                         })}
                     </div>
-                </div>
+                </div> */}
                 <div className="w-full h-[0.1px] bg-gray-800 mt-5"></div>
                 {/* Components */}
                 <div className='my-14'>
@@ -129,31 +130,46 @@ export default function DescriptionPage() {
                     {(!descriptionProjectData || !descriptionProjectData.components || descriptionProjectData.components.length === 0) && (
                         <div>No components available</div>
                     )}
-                    {descriptionProjectData && descriptionProjectData.components.map((component) => {
-                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={component}>
-                            <h1>{component}</h1>
-                        </div>
-                    })}
+                    <div className='flex w-1/2 flex-wrap'>
+                        {descriptionProjectData && descriptionProjectData.components.map((component) => {
+                            return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={component}>
+                                <h1>{component}</h1>
+                            </div>
+                        })}
+                    </div>
                 </div>
 
                 {/* apps and platform */}
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Apps and platforms used:</h4>
-                    {descriptionProjectData && descriptionProjectData.appAndPlatforms.map((apps) => {
-                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={apps}>
-                            <h1>{apps}</h1>
-                        </div>
-                    })}
+                    <div className='w-1/2 flex flex-wrap'>
+                        {descriptionProjectData && descriptionProjectData.appAndPlatforms.map((apps) => {
+                            return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={apps}>
+                                <h1>{apps}</h1>
+                            </div>
+                        })}
+                    </div>
                 </div>
 
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Tags:</h4>
-                    {descriptionProjectData && descriptionProjectData.tags.map((tag) => {
-                        return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={tag}>
-                            <h1>{tag}</h1>
-                        </div>
-                    })}
+                    <div className='w-1/2 flex flex-wrap'>
+                        {descriptionProjectData && descriptionProjectData.tags.map((tag) => {
+                            return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={tag}>
+                                <h1>{tag}</h1>
+                            </div>
+                        })}
+                    </div>
                 </div>
+                {descriptionProjectData && descriptionProjectData.projectUrl &&
+                    <div className='my-14 '>
+                        <Link to={descriptionProjectData.projectUrl} target='_' className='my-14'>
+                            <div className='p-3 bg-blue-700 w-fit flex items-center rounded-md'>
+                                <h6 >Visit Project</h6>
+                            </div>
+                        </Link>
+                    </div>
+                }
                 <div>
                     <h4 className='text-lg font-semibold'>Contributors:</h4>
                     <div className='flex gap-4 flex-col py-3'>

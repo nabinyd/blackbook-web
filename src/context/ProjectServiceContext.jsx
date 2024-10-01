@@ -37,7 +37,7 @@ const ProjectServiceContextProvider = ({ children }) => {
     const updateViews = async (id) => {
         try {
             const response = await projectService.updateViewsCount(id);
-            console.log(response);
+            // console.log(response);
             if (response.statusCode === 200) {
                 console.log(response.message);
             }

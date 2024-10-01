@@ -22,8 +22,6 @@ function DashBoard() {
         fetchMostViewedProjects();
     }, [])
 
-    console.log(totalViews);
-
 
     useEffect(() => {
         fetchFavouritesProjects();

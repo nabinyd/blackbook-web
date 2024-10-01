@@ -1,0 +1,21 @@
+
+
+/* Toolbar */
+.ql-toolbar.ql-snow {
+    border: none !important;
+    box-shadow: none !important; 
+    color: white !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+}
+
+/* text area */
+.ql-container.ql-snow {
+    border: none !important;
+    border-top: 1px solid gray !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    color: white !important;
+    height: 200px;
+    
+}

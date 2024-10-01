@@ -83,7 +83,6 @@ function ProjectCard({ project }) {
                         <h1 className='text-slate-400 text-xs'>
                             {convertTimestampToDate(project.createdAt)}
                         </h1>
-                        {/* <p  className='text-sm'>{project.id}</p>  */}
                     </div>
                 </div>
                 <div >
@@ -106,12 +105,11 @@ function ProjectCard({ project }) {
             </div>
             <Link to={`/description/${project.id}`} onClick={() => updateViews(project.id)}  >
                 <div className='bg-contain'>
-                    <h1>{isUserLoggedIn}</h1>
-                    <img src={project.imagesUrl} alt="card" className='h-44 w-svw py-1' />
+                    <img src={project.imagesUrl[0]} alt="card" className='h-44 w-svw py-1 object-cover' />
                 </div>
                 <div className=''>
                     <h1 className='text-xl text-justify pb-1'>{project.title}</h1>
-                    <p className='text-xs text-slate-400 text-justify text-ellipsis line-clamp-2'>{project.description}</p>
+                    <div className='text-xs text-slate-400 text-justify text-ellipsis line-clamp-2' dangerouslySetInnerHTML={{ __html: project.description }}></div>
                 </div>
                 <div className='flex items-end justify-between'>
                     <div>

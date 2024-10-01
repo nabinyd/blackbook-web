@@ -319,7 +319,7 @@ export default class ProjectService {
             });
             console.log(response.data);
 
-            if (response.status === 200) {
+            if (response.data.statusCode === 201) {
                 return response.data;
             } else {
                 return response;

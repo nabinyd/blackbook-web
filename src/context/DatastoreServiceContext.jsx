@@ -22,7 +22,7 @@ const DatastoreServiceContextProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await datastoreService.addMoreFields(fieldname);
-            console.log(response);
+            // console.log(response);
             if (response.statusCode === 200) {
                 setLoading(false);
                 setError(null);
@@ -177,7 +177,7 @@ const DatastoreServiceContextProvider = ({ children }) => {
 
 
     return (
-        <DatastoreServiceContext.Provider value={{ datastore, fetchCategoryList, fetchCategoryList,  fetchTagList, fetchProjectStatus, fetchProjectType, loading, }}>
+        <DatastoreServiceContext.Provider value={{ datastore, fetchCategoryList, fetchCategoryList,  fetchTagList, fetchProjectStatus, fetchProjectType, loading, error }}>
             {children}
         </DatastoreServiceContext.Provider>
     )

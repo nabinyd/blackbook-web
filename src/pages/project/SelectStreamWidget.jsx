@@ -6,7 +6,9 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required
+            >
                 {datastore.categorylist.Education.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -17,7 +19,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Medical.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -28,7 +31,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.architecture.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -39,7 +43,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.business.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -50,7 +55,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Law.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -61,7 +67,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Health.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -72,7 +79,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet  '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.SocialScienceFields.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -83,7 +91,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.science.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -94,7 +103,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Agricultural.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -105,7 +115,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.arts.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -116,7 +127,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Humanities.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -127,7 +139,8 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
             <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet  '
                 value={projectData.stream}
                 name='stream'
-                onChange={handleInputChange}>
+                onChange={handleInputChange}
+                required>
                 {datastore.categorylist.Engineering.sort().map((stream, index) => (
                     <option key={index} value={stream}>{stream}</option>
                 ))}
@@ -135,7 +148,7 @@ export default function SelectStreamWidget(projectData, handleInputChange, datas
         )
     } else {
         return (
-            <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '>
+            <select className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet ' required>
                 <option value=''>Select Stream</option>
             </select>
         )

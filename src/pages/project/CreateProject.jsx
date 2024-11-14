@@ -156,10 +156,10 @@ export default function CreateProject() {
 
 
     return (
-        <div className='flex flex-col  w-4/6 mx-auto mt-2 border border-gray-700 rounded-xl p-2'>
-            {isUserLoggedIn ? null : <h1 className='text-center bg-red-950 p-1 text-sm  w-full mb-2'>Please Login to create project</h1>}
-            <h1 className='text-center text-3xl font-semibold mb-10'>Create Project</h1>
-            <form onSubmit={handleSubmit} encType='multipart/form-data' className=' mx-auto text-white w-4/5'>
+        <div className='flex flex-col  md:w-4/6 mx-auto mt-2 md:border md:border-gray-700 '>
+            {isUserLoggedIn ? null : <h1 className='text-center p-2 bg-red-950 text-sm  w-full mb-2'>Please Login to create project</h1>}
+            <h1 className='text-center text-3xl  font-semibold mb-10'>Create Project</h1>
+            <form onSubmit={handleSubmit} encType='multipart/form-data' className=' mx-auto text-white md:w-4/5 w-full px-2'>
                 {/* Author Name */}
                 <AuthorNameField projectData={projectData} handleInputChange={handleInputChange} />
 

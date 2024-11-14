@@ -18,12 +18,14 @@ export default function AppsAndPlatformField({
     return (
         <div className='mb-8'>
             <label htmlFor='app and platforms' className='block text-sm font-medium text-gray-300'>App and Platforms (if any)</label>
-            <input className='w-96 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
-                value={newAppAndPlatform}
-                onChange={(e) => setNewAppAndPlatform(e.target.value)}
-                name='appAndPlatforms'
-            />
-            <button onClick={handleAddAppAndPlatform} className='bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm rounded-md px-3 py-2 focus:outline-none ml-2' >Add App&Platform</button>
+            <div className='flex'>
+                <input className='w-full px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+                    value={newAppAndPlatform}
+                    onChange={(e) => setNewAppAndPlatform(e.target.value)}
+                    name='appAndPlatforms'
+                />
+                <button onClick={handleAddAppAndPlatform} className='bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md px-3 py-1.5 focus:outline-none ml-2 text-nowrap' >Add</button>
+            </div>
             <ul className='flex mt-2'>
                 {projectData.appAndPlatforms && projectData.appAndPlatforms.map((appAndPlatform, index) => (
                     <li key={index} className=' bg-dark-jet px-3 py-1 text-sm rounded mx-1 w-fit'>{appAndPlatform}</li>

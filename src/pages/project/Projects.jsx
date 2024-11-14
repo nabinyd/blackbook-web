@@ -36,8 +36,8 @@ function Projects() {
 
     return (
         <>
-            <div className='mx-auto w-fit sm:w-4/5'>
-                <div className='sm:grid sm:grid-cols-3'>
+            <div className='mx-auto w-fit md:w-4/5'>
+                <div className='grid md:grid-cols-3 sm:grid-cols-1 w-full mx-auto'>
                     {projectData.map((project) => {
                         console.log(project);
                         return <ProjectCard key={project.id} project={project} />

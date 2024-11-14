@@ -34,8 +34,8 @@ export default function FinalYearProjects() {
 
     return (
         <>
-            <div className=' mx-auto w-fit sm:w-4/5'>
-                <div className=' sm:grid md:grid-cols-3 sm:grid-cols-2'>
+            <div className='mx-auto w-fit md:w-4/5'>
+                <div className='grid md:grid-cols-3 sm:grid-cols-2 w-full mx-auto '>
                     {finalYearProjects.map((project) => {
                         console.log(project.id);
                         return <ProjectCard key={project.id} project={project} />

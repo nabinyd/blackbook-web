@@ -7,7 +7,7 @@ export default function StreamField({
     datastore
 }) {
     return (
-        <div className='mb-8'>
+        <div className='mb-8 w-full'>
             <label htmlFor='stream' className='block text-sm font-medium text-gray-300'>Stream <sup>*</sup></label>
             {SelectStreamWidget(projectData, handleInputChange, datastore)}
         </div>

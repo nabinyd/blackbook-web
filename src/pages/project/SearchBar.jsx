@@ -50,7 +50,7 @@ function SearchBar({ data, projectData, setProjectData }) {
     return (
         <div className="search-bar mb-5">
             <input
-                className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet'
+                className='w-full md:w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet'
                 type="text"
                 value={query}
                 onChange={handleInputChange}

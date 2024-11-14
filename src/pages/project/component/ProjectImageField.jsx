@@ -74,7 +74,7 @@ export default function ProjectImageField({
         <div className='mb-10 border border-gray-800 rounded-md p-1 py-3'>
             <div>
                 <label htmlFor='project image' className='block text-sm font-medium text-gray-300'>Project Image(max: 5) <sup>*</sup></label>
-                <input type='file' multiple accept='.jpg,.jpeg,.png' className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+                <input type='file' multiple accept='.jpg,.jpeg,.png' className='w-full md:w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                     name='imagesUrl'
                     onChange={handleImageFileChange}
                 />

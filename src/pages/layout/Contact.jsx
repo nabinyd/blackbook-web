@@ -53,15 +53,15 @@ export default function Contact() {
 
 
     return (
-        <div className=' flex flex-col items-center'>
-            <h1 className='mt-12 text-xl'>
+        <div className=' flex flex-col items-center justify-center'>
+            <h1 className='mt-12 text-xl text-center'>
                 You can get in touch with us through below platforms.
             </h1>
             <p className='text-gray-400'>
                 Our team will get back to you as soon as possible.
             </p>
             {/* Suggestion box */}
-            <div className='border rounded-xl w-1/3 border-gray-700 mt-12'>
+            <div className='border rounded-xl md:w-1/3 border-gray-700 mt-12 w-full'>
                 <form className='flex flex-col items-center p-5'>
                     <p className='text-lg text-orange-300'>
                         Send us a message

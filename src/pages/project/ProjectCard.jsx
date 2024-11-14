@@ -73,7 +73,7 @@ function ProjectCard({ project }) {
     })
 
     return (
-        <div className='bg-[#222222]  rounded-md w-80 p-2 z-10 m-4'>
+        <div className='bg-[#222222]  rounded-md sm:w-80 p-2 z-10 m-4'>
             <div className='header flex items-center justify-between px-1 pb-2'>
                 <div className='flex'>
                     <div className='Avatar h-9 w-9 rounded-full bg-blue-600 bg-opacity-20 flex items-center justify-center'>{project.authorName.charAt(0).toUpperCase()}

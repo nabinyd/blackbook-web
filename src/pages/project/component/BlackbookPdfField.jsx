@@ -56,7 +56,7 @@ export default function BlackbookPdfField({
             {projectData.isFinalYearProject && (
                 <div className=' mt-1'>
                     <label htmlFor='project pdf' className='block text-sm font-medium text-gray-300'>Blackbook Pdf</label>
-                    <input type='file' accept='.pdf' className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+                    <input type='file' accept='.pdf' className='w-full md:w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                         onChange={handlePdfFileChange}
                         name='pdfUrl'
                         required

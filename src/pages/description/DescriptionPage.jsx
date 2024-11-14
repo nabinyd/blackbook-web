@@ -8,9 +8,7 @@ import LastSeen from '../../utils/LastSeen.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FeedbackContext } from '../../context/FeedbackContext.jsx';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
-import PdfVIewer from '../../utils/PdfVIewer.jsx';
 import { UserserviceContext } from '../../context/UserServiceContext.jsx';
-import { faNutritionix } from '@fortawesome/free-brands-svg-icons';
 
 
 export default function DescriptionPage() {
@@ -63,21 +61,18 @@ export default function DescriptionPage() {
     }
 
     let title = descriptionProjectData.title.split(" ");
-    // make the first letter of each word capital seprated by space
     title = title.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
     const feedbackLength = projectFeedbacks.length;
     console.log(descriptionProjectData);
 
     return (
-        <div className=' w-8/12 mx-auto text-start p-5'>
+        <div className='md:w-8/12 mx-auto text-start p-5'>
             <div>
                 <div className='my-3'>
-                    {/* <h1>id: {descriptionProjectData.id}</h1> */}
-                    <h1 className='text-3xl font-medium font-lato'>{title}</h1>
-                    {/* <p>{descriptionProjectData.projectStatus}</p> */}
+                    <h1 className='sm:text-3xl font-bold text-2xl'>{title}</h1>
                 </div>
-                <div className='flex text-lg text-gray-400 gap-3 items-center justify-start'>
+                <div className='flex sm:flex-row flex-col sm:text-lg text-gray-400 sm:gap-3 sm:items-center justify-start'>
                     <h2 className=''>  By - {descriptionProjectData.authorName}</h2>
                     <p> Created at: {convertTimestampToDate(descriptionProjectData.createdAt)}</p>
                     <p>  Last updated: {convertTimestampToDate(descriptionProjectData.updatedAt)}</p>
@@ -86,7 +81,7 @@ export default function DescriptionPage() {
                 </div>
 
                 <div className="w-full h-[0.1px] bg-gray-900 mt-5"></div>
-                <div className='flex justify-between  my-10 z-20'>
+                <div className='flex sm:flex-row flex-col justify-between  my-10 z-20'>
                     <div className='border rounded-md border-gray-600 p-2 text-gray-100 w-72 text-wrap'>
                         <h4>Type:  <span className='text-gray-400'>{descriptionProjectData.projectType}</span></h4>
                         <p>Category:  <span className='text-gray-400'>{descriptionProjectData.category}</span></p>
@@ -112,7 +107,7 @@ export default function DescriptionPage() {
                 <div className='my-10'>
                     <h4 className='text-lg font-semibold '>Description:</h4>
                     {/* <p className='text-gray-300 p-2'>{descriptionProjectData.description}</p> */}
-                    <div dangerouslySetInnerHTML={{ __html: descriptionProjectData.description }}></div>
+                    <div dangerouslySetInnerHTML={{ __html: descriptionProjectData.description }} className='text-gray-300 p-2'></div>
 
                 </div>
 
@@ -130,7 +125,7 @@ export default function DescriptionPage() {
                     {(!descriptionProjectData || !descriptionProjectData.components || descriptionProjectData.components.length === 0) && (
                         <div>No components available</div>
                     )}
-                    <div className='flex w-1/2 flex-wrap'>
+                    <div className='flex md:w-1/2 flex-wrap'>
                         {descriptionProjectData && descriptionProjectData.components.map((component) => {
                             return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={component}>
                                 <h1>{component}</h1>
@@ -142,8 +137,8 @@ export default function DescriptionPage() {
                 {/* apps and platform */}
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Apps and platforms used:</h4>
-                    <div className='w-1/2 flex flex-wrap'>
-                        {descriptionProjectData && descriptionProjectData.appAndPlatforms.map((apps) => {
+                    <div className='md:w-1/2 flex flex-wrap'>
+                        {descriptionProjectData && descriptionProjectData.appAndPlatforms.isArray && descriptionProjectData.appAndPlatforms.map((apps) => {
                             return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={apps}>
                                 <h1>{apps}</h1>
                             </div>
@@ -153,7 +148,7 @@ export default function DescriptionPage() {
 
                 <div className='my-14'>
                     <h4 className='text-lg font-semibold'>Tags:</h4>
-                    <div className='w-1/2 flex flex-wrap'>
+                    <div className='md:w-1/2 flex flex-wrap'>
                         {descriptionProjectData && descriptionProjectData.tags.map((tag) => {
                             return <div className='px-2 py-1 w-fit  m-2 flex items-start rounded-lg text-gray-300 bg-neutral-900 ' key={tag}>
                                 <h1>{tag}</h1>
@@ -228,13 +223,13 @@ export default function DescriptionPage() {
                     {feedbackLength === 0 && <p className='text-center'>No comments yet</p>}
                     {feedbackLoading ? <Loader /> : projectFeedbacks.map((comment) => {
                         return (
-                            <div key={comment.id} className=' rounded-lg px-4 my-2 bg-neutral-900 flex justify-between items-center'>
+                            <div key={comment.id} className=' rounded-lg p-1 sm:px-4 my-2 bg-neutral-900 flex justify-between items-center'>
                                 <div className='p-2 flex items-center'>
-                                    <div className='Avatar h-9 w-9 rounded-full bg-blue-600 bg-opacity-20 flex items-center justify-center '>{comment.authorName.charAt(0).toUpperCase()}
+                                    <div className='Avatar h-7 w-7 sm:h-9 sm:w-9 rounded-full bg-blue-600 bg-opacity-20 flex items-center justify-center '>{comment.authorName.charAt(0).toUpperCase()}
                                     </div>
                                     <div className='px-2'>
                                         <div className='flex text-sm items-center justify-center gap-3'>
-                                            <h4 className='font-medium text-[15px]'>{comment.authorName}   </h4>
+                                            <h4 className='font-medium sm:text-[15px] overflow-ellipsis'>{comment.authorName}   </h4>
                                             {/* <span className='px-2'>&#183;</span> */}
                                             <span className='text-gray-400'>
                                                 <LastSeen date={convertTimestampToDate(comment.createdAt)} />

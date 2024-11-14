@@ -40,7 +40,7 @@ export default function ProjectPdfField({
             <label htmlFor='hasProjectPdf' className=' text-gray-300'>
                 Do you have project PDF?
             </label>
-            <input type='checkbox' className='ml-2 bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+            <input type='checkbox' className=' ml-2 bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={hasProjectPdf}
                 onChange={(e) => setHasProjectPdf(e.target.checked)}
                 name='isFinalYearProject'
@@ -48,7 +48,7 @@ export default function ProjectPdfField({
             {hasProjectPdf && (
                 <div className=' mt-1'>
                     <label htmlFor='project pdf' className='block text-sm font-medium text-gray-300'>Project PDF</label>
-                    <input type='file' accept='.pdf' className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+                    <input type='file' accept='.pdf' className='w-full md:w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                         onChange={handleProjectPdfFileChange}
                         name='projectPdf'
                     />

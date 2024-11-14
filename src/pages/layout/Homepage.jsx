@@ -27,7 +27,7 @@ function Homepage() {
         <div className=" scroll-smooth ">
             <div className="homepage h-screen-90  flex flex-col sm:items-center justify-center bg-cover  bg-center" style={{ backgroundImage: `url(${blackwhitelogo})` }}>
                 <div className=" inset-0 opacity-50"></div> {/* Overlay for better text readability */}
-                <div className="relative z-10 text-center ">
+                <div className="relative  text-center ">
                     <h1 className="sm:text-4xl font-semibold text-3xl">
                         Welcome to <span className="text-blue-300">Blackbook</span> -
                         <span className="underline decoration-solid underline-offset-4  decoration-1 decoration-blue-400"> Your ultimate project showcase</span>
@@ -35,7 +35,7 @@ function Homepage() {
                     <h3 className="mt-5 sm:text-xl ">
                         A collection of Innovative Projects by Aspiring Graduates
                     </h3>
-                    <div className="mt-10">
+                    <div className="mt-10 z-10">
                         <div className="p-3 mb-4 sm:text-3xl font-raleway font-bold ">
                             <h1 className="text-orange-500">
                                 Explore 500+ Projects

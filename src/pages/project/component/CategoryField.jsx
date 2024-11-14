@@ -16,7 +16,7 @@ export default function CategoryField({
     return (
         <div className='mb-8'>
             <label htmlFor='category' className='block text-sm font-medium text-gray-300'>Category <sup>*</sup></label>
-            <select id="category" className='w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
+            <select id="category" className='w-full md:w-10/12 px-3 py-2 mt-1 text-sm text-white bg-dark-jet rounded-md focus:outline-none focus:bg-jet '
                 value={projectData.category}
                 name='category'
                 required

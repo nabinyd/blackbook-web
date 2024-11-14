@@ -10,7 +10,7 @@ export default function DescriptionField({
     return (
         <div>
             <label htmlFor='text' className='block text-sm font-medium text-gray-300'>Project Description <sup>*</sup></label>
-            <div className='w-10/12 px-3 h-72 py-2 my-2 text-sm text-white bg-dark-jet rounded-md focus:outline-none  '>
+            <div className='w-full md:w-10/12 px-3 h-72 py-2 my-2 text-sm text-white bg-dark-jet rounded-md focus:outline-none  '>
 
                 <ReactQuill
                     value={projectData.description}
